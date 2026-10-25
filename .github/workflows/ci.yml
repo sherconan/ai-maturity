@@ -1,0 +1,52 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile scripts
+        run: python -m py_compile scripts/*.py
+      - name: Validate SKILL.md frontmatter
+        run: |
+          python - <<'PY'
+          import re, sys
+          t = open("SKILL.md", encoding="utf-8").read()
+          m = re.match(r"^---\n(.*?)\n---\n", t, re.S)
+          if not m: sys.exit("SKILL.md: missing YAML frontmatter")
+          fm = dict(l.split(":", 1) for l in m.group(1).splitlines() if ":" in l)
+          for k in ("name", "description"):
+              if not fm.get(k, "").strip(): sys.exit(f"SKILL.md: missing '{k}'")
+          if fm["name"].strip() != "ai-maturity": sys.exit("SKILL.md: name must be ai-maturity")
+          print("SKILL.md frontmatter OK")
+          PY
+      - name: Check referenced files exist
+        run: |
+          for f in scripts/collect_stats.py scripts/render_report.py references/rubric.md references/VALIDATION.md EVOLUTION.md; do
+            test -f "$f" || { echo "missing $f"; exit 1; }
+          done
+      - name: Smoke test collector (empty HOME)
+        run: |
+          mkdir -p /tmp/emptyhome
+          HOME=/tmp/emptyhome python scripts/collect_stats.py --list
+          HOME=/tmp/emptyhome python scripts/collect_stats.py --tool auto --out /tmp/out || true
+      - name: Check relative Markdown links
+        run: |
+          python - <<'PY'
+          import re, os, sys, glob
+          bad = []
+          for md in glob.glob("**/*.md", recursive=True):
+              for link in re.findall(r"\]\(([^)#\s]+)", open(md, encoding="utf-8").read()):
+                  if "://" in link or link.startswith("mailto:"): continue
+                  if not os.path.exists(os.path.join(os.path.dirname(md), link)): bad.append(f"{md}: {link}")
+          if bad: sys.exit("Broken links:\n" + "\n".join(bad))
+          print("links OK")
+          PY

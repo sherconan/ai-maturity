@@ -7,3 +7,20 @@
 3. **行业覆盖层**：你所在行业的"职业事故清单"（AI 用错会出什么事）+ 工具基准（专业级/够用档）。这是行业版评分规则的原料，见 `references/rubric.md` 的行业覆盖层格式。
 
 隐私红线：任何提交不得包含真实会话内容、姓名、公司可识别信息。
+
+---
+
+## Contributing (English)
+
+The most valuable contributions — none of them require sharing session content:
+
+1. **Client adapters**: the data directory of an AI client on your machine plus the field structure of one record (key names only, values redacted). Update the `CLIENTS` registry in `scripts/collect_stats.py` and the status cell in `references/VALIDATION.md`.
+2. **Classification calibration**: paraphrased task patterns that get misclassified → add keywords to `TASK_RULES`.
+3. **Industry overlays**: a list of "professional incidents" (what goes wrong when AI is misused) and tool baselines for your industry. Format: see the industry overlay section in `references/rubric.md`.
+
+### Workflow
+- Open an issue first for anything non-trivial; small fixes can go straight to a PR.
+- CI (`.github/workflows/ci.yml`) compiles the scripts, validates `SKILL.md` frontmatter, smoke-tests the collector and checks relative Markdown links. Run `python -m py_compile scripts/*.py` locally before pushing.
+- Add a line to `CHANGELOG.md` for user-facing changes.
+
+**Privacy red line:** no real session content, names, or company-identifiable information in any commit, issue, or PR.
