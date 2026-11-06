@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+- README：双语首屏钩子、示例报告、30 秒试用（克隆路径 + skill 里写明的触发句）、适合谁 / 不适合谁、贡献入口（#2–#5）；新增 1280×640 分享图 `assets/og-card.png`
+- README: bilingual hooks, sample report, 30-second try path (clone + the skill's own trigger phrases), who it's for, contributing pointers to #2–#5; added a 1280×640 share card at `assets/og-card.png`
+
 ## v3.9.1 (2026-10-25)
 - 新增 CI：脚本编译检查、SKILL.md frontmatter 校验、采集脚本空环境冒烟测试、Markdown 相对链接检查
 - CONTRIBUTING 增加英文版与提交流程；新增 PR 模板
