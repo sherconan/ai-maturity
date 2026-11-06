@@ -8,6 +8,8 @@
 
 隐私红线：任何提交不得包含真实会话内容、姓名、公司可识别信息。
 
+眼下欢迎接手的四件事（不要为了重写而关掉 issue）：[#2](https://github.com/sherconan/ai-maturity/issues/2) Linux 识别、[#3](https://github.com/sherconan/ai-maturity/issues/3) 英文报告、[#4](https://github.com/sherconan/ai-maturity/issues/4) 合成样本单测、[#5](https://github.com/sherconan/ai-maturity/issues/5) 无会话时的退出码。短说明见 README 的「欢迎贡献」。
+
 ---
 
 ## Contributing (English)
@@ -24,3 +26,5 @@ The most valuable contributions — none of them require sharing session content
 - Add a line to `CHANGELOG.md` for user-facing changes.
 
 **Privacy red line:** no real session content, names, or company-identifiable information in any commit, issue, or PR.
+
+Welcome, and please don't close these just to restate them: [#2](https://github.com/sherconan/ai-maturity/issues/2) Linux detection, [#3](https://github.com/sherconan/ai-maturity/issues/3) English report, [#4](https://github.com/sherconan/ai-maturity/issues/4) synthetic unit tests, [#5](https://github.com/sherconan/ai-maturity/issues/5) empty-session exit. Short version: the Contributing section of the README.
